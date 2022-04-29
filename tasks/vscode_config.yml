@@ -24,6 +24,7 @@
     - esbenp.prettier-vscode
     - CoenraadS.bracket-pair-colorizer-2
     - eamodio.gitlens
+    - ms-python.python
   become: true
   become_user: aluno
 

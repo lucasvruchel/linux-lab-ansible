@@ -4,18 +4,36 @@
         src: background.png
         dest: /opt/background.png
 
-- name: chance user aluno wallpaper
-  become_user: aluno
-  command: gsettings set org.gnome.desktop.background picture-uri "file:///opt/background.png"
 
-- name: chance user aluno wallpaper
-  become_user: aluno
-  command: gsettings set org.gnome.desktop.background primary-color "#FFFFFF"
+- name: configure dconf profile
+  template:
+    src: wallpaper_profile
+    dest: /etc/dconf/profile/user
 
-- name: chance user aluno color shading
-  become_user: aluno
-  command: gsettings set org.gnome.desktop.background secondary-color "#FFFFFF"
+- name: create profile db local directory
+  file:
+    path: /etc/dconf/db/local.d/ 
+    state: directory
+    owner: root
+    mode: 0755
 
-- name: chance user aluno background second-color
-  become_user: aluno
-  command: gsettings set org.gnome.desktop.background color-shading-type "solid"
+- name: config directory settings
+  template:
+    src: wallpaper_config
+    dest: /etc/dconf/db/local.d/00-background
+
+- name: create profile db/lock local directory
+  file:
+    path: /etc/dconf/db/local.d/locks/
+    state: directory
+    owner: root
+    mode: 0755
+
+- name: create lock for wallpaper settings
+  template:
+    src: wallpaper_lock
+    dest: /etc/dconf/db/local.d/locks/lockdown
+
+- name: update dconf database
+  command: dconf update
+

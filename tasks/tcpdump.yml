@@ -1,0 +1,17 @@
+---
+- name: tcpdump.yml - Set includedir in sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    line: "#includedir /etc/sudoers.d"
+    state: present
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Create sudoers
+  template: 
+        src: tcpdump.j2
+        dest: "/etc/sudoers.d/{{ tcpdump_file }}"
+        mode: 0440
+        owner: root
+        group: root
+        validate: "/usr/sbin/visudo -cf %s"
+

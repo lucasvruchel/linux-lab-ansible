@@ -1,0 +1,9 @@
+---
+- name: save.yml - Criar pasta save
+  file: 
+        path: /save
+        state: directory
+        mode: 0777
+        owner: root
+
+

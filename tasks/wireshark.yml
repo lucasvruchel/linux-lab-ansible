@@ -1,0 +1,19 @@
+---
+- name: wireshark.yml - create wireshark group
+  group:
+        name: wireshark
+        state: present
+
+- name: change dumpcap permission
+  file:
+          state: file
+          group: wireshark
+          mode: 04750
+          path: /usr/bin/dumpcap
+
+- name: update user aluno
+  user:
+          name: aluno
+          groups: wireshark
+          append: yes
+

@@ -1,0 +1,38 @@
+- name: install jupyter
+  become_user: aluno
+  pip:
+       name: jupyter,matplotlib,sklearn,pandas,seaborn,numpy
+       executable: pip3
+
+
+- name: install node steps
+  block:
+    - name: verify nvm installation
+      stat:
+        path: /home/aluno/.nvm/
+      register: nvm_status
+
+    - name: install nvm linux -- nvm bin
+      shell: > 
+         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      args:
+        executable: /bin/bash
+        chdir: "{{ /home/aluno }}"
+        creates: "/home/aluno/.nvm/nvm.sh"
+      when: nvm_status.stat.islnk is not defined
+
+    - name: install "node"
+      shell: >
+        . /home/aluno/.nvm/nvm.sh && nvm install --lts
+      args:
+        executable: /bin/bash
+        chdir: "/home/aluno/"
+        creates: "/home/aluno/.nvm/versions/node"
+  become: true
+  become_user: aluno
+  become_method: sudo
+  ignore_errors: true
+
+
+
+

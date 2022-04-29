@@ -1,0 +1,22 @@
+---
+
+- name: hostname.yml - Run command to update hostname
+  shell: |
+      dmidecode -s chassis-serial-number | tr '[:upper:]' '[:lower:]'
+  register: n_name
+      
+- name: register hostname
+  shell: cat /etc/hostname
+  register: h_name
+
+- name: update /etc/hostname
+  shell: |
+          hostnamectl set-hostname {{ n_name.stdout }}
+  when: h_name.stdout != n_name.stdout
+  ignore_errors: yes
+
+- name: update hostname /etc/hosts
+  template:
+          src: hostname.j2
+          dest: /etc/hosts
+

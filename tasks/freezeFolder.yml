@@ -1,0 +1,61 @@
+---
+
+- name: freezefolder.yml - create home freeze directory
+  file:
+          path: /home/aluno.dynamic
+          state: directory
+          owner: aluno
+          group: aluno
+          mode: 0755
+
+- name: copy freeze-service
+  template:
+        src: freeze-folder.service
+        dest: /etc/systemd/system/freeze-folder.service
+
+- name: cria pasta para script de deleção de arquivos
+  file:
+        path: /usr/share/freeze
+        state: directory
+
+- name: cria pasta para overlayfs -- workdir | must be empty
+  file:
+        path: /home/aluno.work
+        state: directory
+        owner: aluno
+        group: aluno
+        mode: 0755
+
+- name: cria pasta para overlayfs -- static | must be empty
+  file:
+        path: /home/.aluno_static
+        state: directory
+        owner: aluno
+        group: aluno
+        mode: 0755
+
+- name: copy script to delete dynamic folder
+  template:
+        src: freeze-folder.sh
+        dest: /usr/share/freeze/clean.sh
+        owner: root
+        mode: 0744
+
+- name: enable freeze service on boot
+  systemd:
+        name: freeze-folder.service
+        enabled: yes
+
+- name: mount tmpfs /home/aluno
+  mount:
+          path: /home/aluno
+          state: present
+          fstype: overlay
+          src: none
+          opts: lowerdir=/home/aluno:/home/.aluno_static,upperdir=/home/aluno.dynamic/,workdir=/home/aluno.work,defaults,x-systemd.before=getty.target
+          passno: 2
+  notify:
+           - reboot
+  register:
+        freezed
+  ignore_errors: true

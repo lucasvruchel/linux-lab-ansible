@@ -1,0 +1,117 @@
+---
+- name: programs.yml - install softwares
+  apt:
+          name: "{{ item }}"
+          state: latest
+  loop:
+          - geany
+          - geany-plugins
+          - fpc
+          - php-cli
+          - python3-virtualenv
+          - codeblocks
+          - aptitude
+          - php-cli
+          - php-mysql
+          - php-pgsql
+          - screen
+          - links
+          - net-tools
+          - python3-pymysql
+
+- name: postgresql.yml - install postgresql plugins 
+  apt: 
+        name: [python3-mysqldb, python3-psycopg2, postgresql, libpq-dev, pgadmin3] 
+  
+- name: mysql.yml - install mysql-server
+  apt:
+          name: mysql-server, python3-pymysql
+          state: latest
+
+- name: copy google chrome template .desktop
+  template:
+        src: google-chrome.desktop
+        dest: /usr/share/applications/google-chrome.desktop 
+
+- name: java.yml - install java jdk
+  apt:
+          name: default-jdk
+          state: latest
+
+- name: install java
+  apt:
+          name: openjdk-11-jdk-headless
+          state: latest
+
+
+- name: remove softwares 
+  apt:
+          name: "{{ item }}"
+          state: absent
+  loop:
+          - kdeconnect
+          - thunderbird
+
+
+- name: install qgis
+  apt:
+        name: qgis
+        state: present
+ 
+- name: verify vscode installation
+  stat:
+    path: /usr/share/code/code
+  register: code_bin
+
+- name: install vscode
+  block:
+    - name: copy vscode installer
+      get_url:
+            url: ftp://10.1.255.17/vscode.deb
+            dest: /opt/vscode.deb
+
+    - name: install vscode
+      apt:
+            deb: /opt/vscode.deb
+
+    - name: remove vscode installer
+      file:
+            name: /opt/vscode.deb
+            state: absent
+  when: code_bin.stat.islnk is not defined
+
+
+- name: verify postman installation
+  stat:
+    path: /usr/local/bin/postman
+  register: postman_bin
+
+- name: install postman
+  block:
+    - name: get postman from ftp
+      get_url:
+            url: ftp://10.1.255.17/postman.tar.gz
+            dest: /tmp/postman.tar.gz
+
+    - name: postman unarchive in /opt
+      unarchive:
+            src: /tmp/postman.tar.gz
+            dest: /opt/
+            remote_src: yes
+
+    - name: postman link to shell
+      file:
+            src: /opt/Postman/Postman
+            dest: /usr/local/bin/postman
+            state: link
+
+    - name: postman icon
+      template:
+            src: postman.desktop
+            dest: /usr/share/applications/postman.desktop
+
+    - name: remove postman compacted
+      file:
+            name: /tmp/postman.tar.gz
+            state: absent
+  when: postman_bin.stat.islnk is not defined

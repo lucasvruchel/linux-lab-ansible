@@ -1,0 +1,14 @@
+---
+
+
+- name: adiciona repositorio do android-studio
+  apt_repository:
+        repo: ppa:maarten-fonville/android-studio
+        state: present
+
+
+- name: apt dependencies
+  apt:
+          name: [gcc-multilib, g++-multilib, libc6-dev-i386, qemu-kvm, mesa-utils, android-studio]
+          state: latest
+

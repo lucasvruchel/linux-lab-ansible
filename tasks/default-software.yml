@@ -1,0 +1,39 @@
+---
+
+- name: update all packages
+  apt:  
+        upgrade: dist
+
+- name: default-softwares.yml - Default softwares to labs network
+  apt: 
+        name: [wireshark, tcpdump, arp-scan, dsniff, ipcalc, filezilla, traceroute, nbtscan, nmap, iptraf, curl, gnome-tweak-tool]
+        state: latest
+
+- name: Default softwares to lab programmin
+  apt:
+           name: [python3-pip, python-dev, python-tk, python-pygame, g++, gcc, git, virtualenv, codeblocks]
+           state: latest
+
+
+- name: Common Softwares
+  apt:
+          name: [rar, unrar, p7zip-full, wine-stable]
+          state: latest
+
+- name: Audio and Video softwares
+  apt:
+          name: [vlc, audacity, smplayer, blender, pitivi, openshot, gimp, inkscape, audacity, kdenlive]
+          state: latest
+
+- name: system utilities
+  apt:
+          name: [vim, okular, git, gparted, sysstat, rsync, htop, fortune, cowsay, cmatrix, figlet, exfat-utils, exfat-fuse]
+          state: latest
+
+- name: extra utilities
+  apt:
+          name: [umbrello, remmina, oregano, dia]
+          state: latest
+
+
+

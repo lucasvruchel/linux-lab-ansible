@@ -1,0 +1,31 @@
+---
+
+- name: vscode - create extensions folder
+  file:
+    path: /opt/vscode_extensions
+    state: directory
+    mode: 0777
+    owner: ti
+
+- name: copy vscode desktop shortcuts to /usr/share/applications
+  template:
+    src: "{{ item }}"
+    dest: /usr/share/applications/
+  loop:
+    - code.desktop
+    - code-url-handler.desktop
+  
+- name: install vscode extensions
+  shell: "code --install-extension {{ item }} --extensions-dir /opt/vscode_extensions"
+  loop:
+    - abusaidm.html-snippets
+    - xabikos.JavaScriptSnippets
+    - ritwickdey.LiveServer
+    - esbenp.prettier-vscode
+    - CoenraadS.bracket-pair-colorizer-2
+    - eamodio.gitlens
+  become: true
+  become_user: aluno
+
+
+

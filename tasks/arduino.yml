@@ -1,0 +1,26 @@
+---
+- name: arduino.yml - verifica pasta do arduino
+  stat:
+        path: "{{ ARDUINO_FOLDER }}"
+  register: arduino_stat
+
+
+- name: copia e instala o arduino
+  block:
+      - name: copia arduino  to /tmp
+        get_url: 
+          url: "ftp://10.1.255.17/{{ ARDUINO_FILE }}"
+          dest: "/tmp/{{ ARDUINO_FILE }}"
+          
+      - name:  Descompacta arduino installer
+        unarchive:
+            src: "/tmp/{{ ARDUINO_FILE }}"
+            dest: /opt/
+            remote_src: yes
+   
+      - name: executa instalador do arduino
+        shell:
+            cmd: "{{ ARDUINO_FOLDER }}/install.sh"
+  when: arduino_stat.stat.exists == False
+  
+

@@ -1,0 +1,8 @@
+---
+# defaults file for common
+
+#  python -c "from passlib.hash import sha512_crypt; import getpass; print(sha512_crypt.using(rounds=5000).hash(getpass.getpass()))"
+ti_pass: $6$m/1Ypfe5iBHxYosM$KzXzD9zo1Tj8fkAlM/8LOtxT/CL7VUm6o1UYkJpwdbffZ6JX5oR7y2MFtISVxZQUpK5bsh.la7u1BOgzCpGn11
+
+sudoers_file: "custom_sudoer"
+tcpdump_file: "tcpdump"

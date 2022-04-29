@@ -1,0 +1,20 @@
+---
+
+- name: disable-services.yml - disable unnecessary services
+  service:
+          enabled: no
+          name: "{{ item }}"
+          state: stopped
+  with_items:
+          - cups-browsed
+          - cups
+          - apt-daily-upgrade
+          - bluetooth
+
+- name: disable cron to user aluno
+  template:
+        src: cron.deny
+        dest: /etc/cron.deny
+        owner: root
+        group: root
+        mode: '0664'

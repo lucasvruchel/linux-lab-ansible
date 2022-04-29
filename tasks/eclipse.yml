@@ -1,0 +1,28 @@
+---
+
+
+- name: eclipse.yml - verify eclipse folder is created
+  stat:
+          path: /opt/eclipse
+  register: eclipse_status
+
+- name: copy and install eclipse
+  block:
+    - name: copy
+      get_url:
+        url: ftp://10.1.255.17/eclipse.tar.gz
+        dest: /tmp/eclipse.tar.gz
+
+    - name: unarchive eclipse
+      unarchive:
+              src: /tmp/eclipse.tar.gz
+              dest: /opt/
+              mode: 0755
+              remote_src: yes
+      
+
+    - name: create desktop entry
+      template:
+              src: eclipse.desktop.j2
+              dest: /usr/share/applications/eclipse.desktop
+  when: eclipse_status.stat.exists == False

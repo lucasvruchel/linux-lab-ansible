@@ -1,0 +1,16 @@
+---
+
+- name: libreoffice.yml - latest repo
+  apt_repository:
+          repo: ppa:libreoffice/libreoffice-still
+
+- name: install latest libreoffice
+  apt:
+          name: libreoffice
+          state: latest
+
+- name: install translations
+  apt:
+          name: libreoffice-l10n-pt-br,libreoffice-style-galaxy
+          state: latest
+

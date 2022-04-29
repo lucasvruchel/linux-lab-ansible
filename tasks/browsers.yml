@@ -1,0 +1,28 @@
+- name: Install default browsers 
+  block:
+    - name: "apt | ensure Google linux signing key present"
+      apt_key: url=https://dl-ssl.google.com/linux/linux_signing_key.pub state=present
+
+    - name: "apt | ensure Google chrome repo present"
+      apt_repository:
+        repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+        filename: "google-chrome"
+        state: present
+        update_cache: yes
+
+    - name: latest browsers
+      apt:
+              name: [google-chrome-stable, firefox]
+              state: latest
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: latest browsers
+      apt:
+              name: [google-chrome-stable, firefox-esr]
+              state: latest
+      when: ansible_distribution == 'Debian'
+
+    - name: copy google chrome template .desktop
+      template:
+            src: google-chrome.desktop
+            dest: /usr/share/applications/google-chrome.desktop 

@@ -1,0 +1,15 @@
+---
+- name: Disable auto updates
+  block:
+          - name: disable automatic updates in ubuntu conf file
+            template:
+                src: apt_updates
+                dest: /etc/apt/apt.conf.d/20auto-upgrades
+
+          - name: remove binary of updater
+            apt:
+                name: unattended-upgrades
+                state: absent
+
+
+

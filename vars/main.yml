@@ -1,0 +1,10 @@
+---
+# vars file for .
+
+hostname: "{{ lookup('file', '/etc/hostname') }}"
+
+aluno_pass: $6$g1EAOcZbo8YmJalS$yFd1lyzJ.iYTftozN7ORxHZALaIZxb1XoYYKxCLYy15E.WT/ssaiMy1qEThkSF/F63T9/YhRhcYr/e3Jo5mmk.
+ti_pass : $6$Qn.UjlS3mp8xymuZ$sW4SIxU1FoQ3gECj3pGNtDEG3O59fI3iBlmUYXJbQhgtP11.A9dQfrXiZ7Wa9ujlBmYZldqLmhsd.DmSZAzCd.
+
+ARDUINO_FILE: arduino-1.8.13-linux64.tar.xz
+ARDUINO_FOLDER: /opt/arduino-1.8.13

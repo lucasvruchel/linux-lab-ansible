@@ -1,0 +1,13 @@
+---
+
+- name: configure postgresql user
+  become_user: postgres
+  become: true
+  postgresql_user:
+      name: aluno
+      password: "md519ac35fc03f5e0156bc9411cf59c4367"
+      encrypted: yes
+      role_attr_flags: CREATEDB
+
+
+

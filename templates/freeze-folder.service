@@ -1,0 +1,11 @@
+[Unit]
+Description=Remoção de arquivos
+
+[Service]
+Type=oneshot
+ExecStop=/usr/share/freeze/clean.sh
+ExecStart=/bin/true
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

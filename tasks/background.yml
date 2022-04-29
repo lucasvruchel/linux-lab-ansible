@@ -1,0 +1,21 @@
+---
+- name: copy background image
+  copy: 
+        src: background.png
+        dest: /opt/background.png
+
+- name: chance user aluno wallpaper
+  become_user: aluno
+  command: gsettings set org.gnome.desktop.background picture-uri "file:///opt/background.png"
+
+- name: chance user aluno wallpaper
+  become_user: aluno
+  command: gsettings set org.gnome.desktop.background primary-color "#FFFFFF"
+
+- name: chance user aluno color shading
+  become_user: aluno
+  command: gsettings set org.gnome.desktop.background secondary-color "#FFFFFF"
+
+- name: chance user aluno background second-color
+  become_user: aluno
+  command: gsettings set org.gnome.desktop.background color-shading-type "solid"

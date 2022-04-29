@@ -1,0 +1,8 @@
+---
+
+- name: sysctl.yml - copy sysctl rules to /etc/sysctl.d/99-sysctl.conf
+  template:
+        src: 99-sysctl.conf
+        dest: /etc/sysctl.d/99-sysctl.conf
+  notify:
+        - reboot

@@ -1,0 +1,12 @@
+---
+
+- name: wifi.yml - reload network manager
+  systemd:
+          name: NetworkManager
+          state: reloaded
+
+- name: disable wifi networks
+  template:
+    src: keyfile.conf.j2
+    dest: /etc/NetworkManager/conf.d/keyfile.conf
+

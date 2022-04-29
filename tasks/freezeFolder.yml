@@ -54,8 +54,6 @@
           src: none
           opts: lowerdir=/home/aluno:/home/.aluno_static,upperdir=/home/aluno.dynamic/,workdir=/home/aluno.work,defaults,x-systemd.before=getty.target
           passno: 2
-  notify:
-           - reboot
   register:
         freezed
   ignore_errors: true

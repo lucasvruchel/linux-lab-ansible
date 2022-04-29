@@ -6,8 +6,6 @@
         name: ssh
         state: restarted
 
-- name: reboot
-  command: reboot
 
 - name: network reload
   systemd:

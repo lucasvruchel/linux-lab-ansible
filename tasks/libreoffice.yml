@@ -1,9 +1,5 @@
 ---
 
-- name: libreoffice.yml - latest repo
-  apt_repository:
-          repo: ppa:libreoffice/libreoffice-still
-
 - name: install latest libreoffice
   apt:
           name: libreoffice

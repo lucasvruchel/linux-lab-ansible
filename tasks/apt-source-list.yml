@@ -1,0 +1,42 @@
+---
+- name: alteração de sources.list
+  template:
+    src: apt.sources.list/sources.list
+    dest: /etc/apt/sources.list
+
+- name: remove vscode repo /tmp
+  file:
+    path: /etc/apt/sources.list.d/vscode.list
+    state: absent
+
+# PPAs da fonte
+# TODO adicionar verificação
+- name: libreoffice.yml - latest repo
+  apt_repository:
+    repo: ppa:libreoffice/libreoffice-still
+
+- name: add virtualbox repository
+  apt_repository:
+    state: present
+    repo: deb https://download.virtualbox.org/virtualbox/debian focal contrib
+
+- name: "apt | ensure Google chrome repo present"
+  apt_repository:
+    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+    filename: "google-chrome"
+    state: present
+
+- name: alteração de sources.list.d files
+  template:
+      src: "apt.sources.list/{{ item }}"
+      dest: "/etc/apt/sources.list.d/{{ item }}"
+  loop:
+    - download_virtualbox_org_virtualbox_debian.list
+    - ppa_libreoffice_libreoffice_still_focal.list
+    - google-chrome.list
+    # - vscode.list
+ 
+- name: apt update and upgrade
+  apt:
+    update-cache: yes
+    upgrade: full

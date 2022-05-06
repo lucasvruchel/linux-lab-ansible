@@ -1,8 +1,23 @@
 - name: install jupyter
   become_user: aluno
   pip:
-       name: jupyter,matplotlib,sklearn,pandas,seaborn,numpy
+       name: "{{ item }}"
        executable: pip3
+  loop:
+    - jupyter
+    - matplotlib
+    - sklearn
+    - pandas
+    - seaborn
+    - numpy
+    - geopandas==0.7.0
+    - geobr
+    - tqdm
+    - streamlit
+    - dash
+    - sklearn
+    - matplotlib
+
 
 
 - name: install node steps

@@ -17,7 +17,11 @@
           - screen
           - links
           - net-tools
+          - iproute2
+          - netcat
           - python3-pymysql
+          - tcpdump
+          - tshark
 
 - name: postgresql.yml - install postgresql plugins 
   apt: 

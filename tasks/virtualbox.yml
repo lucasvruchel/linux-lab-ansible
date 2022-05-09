@@ -10,7 +10,7 @@
 - name: add/update virtualbox packages
   apt:
        name: '{{ item }}'
-       state: latest
+       state: present
   loop:
       - virtualbox-qt
       - virtualbox-6.1

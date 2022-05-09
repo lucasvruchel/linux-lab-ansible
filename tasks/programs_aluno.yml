@@ -1,8 +1,17 @@
+- name: pip upgrade pip3
+  pip:
+       name: pip
+       executable: pip3
+       state: latest
+
 - name: install jupyter
+  become: True
   become_user: aluno
   pip:
        name: "{{ item }}"
        executable: pip3
+       state: latest
+       umask: "0022"
   loop:
     - jupyter
     - matplotlib

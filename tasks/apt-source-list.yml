@@ -11,30 +11,53 @@
 
 # PPAs da fonte
 # TODO adicionar verificação
+
+- name: "apt | ensure Google linux signing key present"
+  apt_key: 
+          url: https://dl-ssl.google.com/linux/linux_signing_key.pub 
+          state: present
+
+- name: virtualbox.yml - add virtualbox key
+  apt_key:
+          url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+          state: present
+
+- name: Add virtualbox key
+  apt_key:
+          url: https://www.virtualbox.org/download/oracle_vbox.asc
+          state: present
+
+- name: Add VScode key
+  apt_key:
+          url: https://packages.microsoft.com/keys/microsoft.asc
+          state: present
+         
+
+
+- name: verify source list file libreoffice
+  ansible.builtin.stat:
+    path: /etc/sources.list.d/libreoffice.list
+  register: libreoffice_stat
+
+
+
 - name: libreoffice.yml - latest repo
   apt_repository:
     repo: ppa:libreoffice/libreoffice-still
-
-- name: add virtualbox repository
-  apt_repository:
+    filename: "libreoffice"
     state: present
-    repo: deb https://download.virtualbox.org/virtualbox/debian focal contrib
+  when: libreoffice_stat.stat.islnk is not defined
 
-- name: "apt | ensure Google chrome repo present"
-  apt_repository:
-    repo: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
-    filename: "google-chrome"
-    state: present
 
 - name: alteração de sources.list.d files
   template:
       src: "apt.sources.list/{{ item }}"
       dest: "/etc/apt/sources.list.d/{{ item }}"
   loop:
-    - download_virtualbox_org_virtualbox_debian.list
-    - ppa_libreoffice_libreoffice_still_focal.list
+    - virtualbox.list
+    - libreoffice.list
     - google-chrome.list
-    # - vscode.list
+    - vscode.list
  
 - name: apt update and upgrade
   apt:

@@ -33,12 +33,19 @@
           state: present
          
 
+- name: remove old repo source
+  file:
+    path: "/etc/apt/sources.list.d/{{ item }}.list"
+    state: absent
+  loop: 
+    - download_virtualbox_org_virtualbox_debian
+    - ppa_libreoffice_libreoffice_still_focal
+
 
 - name: verify source list file libreoffice
   ansible.builtin.stat:
     path: /etc/sources.list.d/libreoffice.list
   register: libreoffice_stat
-
 
 
 - name: libreoffice.yml - latest repo

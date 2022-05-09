@@ -44,7 +44,7 @@
 
 - name: verify source list file libreoffice
   ansible.builtin.stat:
-    path: /etc/sources.list.d/libreoffice.list
+    path: /etc/apt/sources.list.d/libreoffice.list
   register: libreoffice_stat
 
 

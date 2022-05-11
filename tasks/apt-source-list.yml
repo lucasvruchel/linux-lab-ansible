@@ -9,8 +9,7 @@
     path: /etc/apt/sources.list.d/vscode.list
     state: absent
 
-# PPAs da fonte
-# TODO adicionar verificação
+# Adiciona Chaves
 
 - name: "apt | ensure Google linux signing key present"
   apt_key: 
@@ -32,6 +31,7 @@
           url: https://packages.microsoft.com/keys/microsoft.asc
           state: present
          
+# Adiciona repositorios
 
 - name: remove old repo source
   file:
@@ -55,6 +55,10 @@
     state: present
   when: libreoffice_stat.stat.islnk is not defined
 
+- name: adiciona repositorio do android-studio
+  apt_repository:
+        repo: ppa:maarten-fonville/android-studio
+        state: absent
 
 - name: alteração de sources.list.d files
   template:

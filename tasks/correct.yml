@@ -1,0 +1,7 @@
+---
+
+- name: configure 
+  command: dpkg --configure -a
+
+- name: correct command
+  command: dpkg --remove --force-remove-reinstreq android-studio-2021.2.1

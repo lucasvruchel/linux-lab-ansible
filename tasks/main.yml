@@ -1,5 +1,6 @@
 ---
 # tasks file for .
+- import_tasks: correct.yml
 
 # freezes aluno dir
 - import_tasks: freezeFolder.yml

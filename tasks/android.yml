@@ -1,8 +1,5 @@
 ---
 
-- name: correct command
-  command: dpkg --remove --force-remove-reinstreq android-studio-2021.2.1
-
 - name: apt dependencies
   apt:
           name: [gcc-multilib, g++-multilib, libc6-dev-i386, qemu-kvm, mesa-utils]

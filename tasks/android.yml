@@ -1,7 +1,45 @@
 ---
 
-- name: apt dependencies
-  apt:
-          name: [gcc-multilib, g++-multilib, libc6-dev-i386, qemu-kvm, mesa-utils]
-          state: latest
+
+- name: install android-studio
+  block:
+    - name: copy android-studio installer
+      get_url:
+            url: ftp://10.1.255.17/android-studio.tar.gz
+            dest: /opt/android-studio.tar.gz
+
+    - name: install android-studio apt dependencies
+      apt:
+        name: [gcc-multilib, g++-multilib, libc6-dev-i386, qemu-kvm, mesa-utils]
+        state: latest
+
+    - name: unzip android-studio to /opt
+      unarchive:
+        copy: false
+        src: /opt/android-studio.tar.gz
+        dest: /opt/
+        mode: "0755"
+
+    - name: copy android studio template
+      template:
+        src: android-studio.desktop
+        dest: /usr/share/applications/
+
+
+    - name: update system icons
+      block:
+        - name: gtk update
+          command: gtk-update-icon-cache /usr/share/icons/hicolor/
+
+        - name: desktop database
+          command: update-desktop-database -q
+
+        - name: xdg menu
+          command: xdg-desktop-menu forceupdate
+
+    - name: remove arquivo compactado
+      file:
+        path: /opt/android-studio.tar.gz
+        state: absent
+
 

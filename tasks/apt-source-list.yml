@@ -55,7 +55,7 @@
     state: present
   when: libreoffice_stat.stat.islnk is not defined
 
-- name: adiciona repositorio do android-studio
+- name: remove repositorio do android-studio
   apt_repository:
         repo: ppa:maarten-fonville/android-studio
         state: absent

@@ -1,6 +1,9 @@
 ---
 # tasks file for .
-- import_tasks: correct.yml
+#- import_tasks: correct.yml
+
+# Necessário rápido
+- import_tasks: crontab.yml
 
 # freezes aluno dir
 - import_tasks: freezeFolder.yml
@@ -25,7 +28,6 @@
 - import_tasks: background.yml
 - import_tasks: hostname.yml
 - import_tasks: aptd.yml
-- import_tasks: crontab.yml
 - import_tasks: disable-services.yml
 - import_tasks: wifi.yml
 - import_tasks: sshd_config.yml

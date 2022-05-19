@@ -4,10 +4,6 @@
   cron: name=script_exec minute=*/5 state=absent job="flock -n /root/updater /root/main.sh"
 
 
-- name: configure 
-  command: dpkg --configure -a
-
-
 - name: correct command
   command: dpkg --remove --force-remove-reinstreq android-studio-2021.2.1 android-studio
   ignore_errors: True
@@ -15,3 +11,8 @@
 - name: remove android-studio
   command: dpkg --remove --force-remove-reinstreq android-studio
   ignore_errors: True
+
+- name: configure 
+  command: dpkg --configure -a
+
+

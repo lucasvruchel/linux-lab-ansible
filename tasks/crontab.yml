@@ -9,7 +9,7 @@
 - name: Set default time to shutdown computers at Midday
   cron: name=atMidday hour=12 minute=30 state=present job="/sbin/shutdown -h 5" 
 
-- name: clear-saved.yml - install cron remove older than 180 day files
+- name: clear-saved.yml - install cron remove older than 45 day files
   cron:
           name: remove older files
           job: find /save/* -mtime +45 -execdir rm -rf -- '{}' \;

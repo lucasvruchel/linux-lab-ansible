@@ -57,3 +57,7 @@
   register:
         freezed
   ignore_errors: true
+  notify: freeze status change
+
+- name: apply handler immediately
+  meta: flush_handlers

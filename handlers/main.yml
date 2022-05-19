@@ -16,3 +16,5 @@
   apt:
           update_cache: yes
 
+- name: freeze status change
+  command: shutdown -r now

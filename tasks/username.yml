@@ -17,17 +17,24 @@
           password: "{{ ti_pass }}"
           shell: /bin/bash
 
-- name: create ssh dir folder for ti
-  file:
-    path: /home/ti/.ssh/
-    mode: 0700
-    owner: ti
-    state: directory
+# - name: create ssh dir folder for ti
+#   file:
+#     path: /home/ti/.ssh/
+#     mode: 0700
+#     owner: ti
+#     state: directory
 
-- name: ensure key is present to ti user
-  copy:
-          src: id_rsa.pub
-          dest: "/home/ti/.ssh/id_rsa.pub"
-          mode: 0600
-          owner: ti
+# - name: ensure key is present to ti user
+#   copy:
+#           src: id_rsa.pub
+#           dest: "/home/ti/.ssh/id_rsa.pub"
+#           mode: 0600
+#           owner: ti
+
+- name: ensure key is installed to ti user
+  ansible.posix.authorized_key:
+    key: https://raw.githubusercontent.com/lucasvruchel/linux-lab-ansible/master/files/id_rsa.pub
+    user: ti
+    state: present
+  
 

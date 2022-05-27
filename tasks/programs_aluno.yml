@@ -10,7 +10,7 @@
   pip:
        name: "{{ item }}"
        executable: pip3
-       state: latest
+       state: present
        umask: "0022"
   loop:
     - jupyter

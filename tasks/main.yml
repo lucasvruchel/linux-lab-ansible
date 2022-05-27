@@ -30,7 +30,7 @@
 - import_tasks: hostname.yml
 - import_tasks: aptd.yml
 - import_tasks: disable-services.yml
-# - import_tasks: wifi.yml
+- import_tasks: wifi.yml
 - import_tasks: sshd_config.yml
 - import_tasks: sysctl_conf.yml
 - import_tasks: vscode_config.yml

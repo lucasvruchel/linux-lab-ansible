@@ -6,4 +6,4 @@
           name: aluno
           password: aluno
           login_unix_socket: /var/run/mysqld/mysqld.sock
-          priv: '*.*:ALL'
+          priv: '*.*:ALL,GRANT'

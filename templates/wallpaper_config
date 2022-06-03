@@ -8,7 +8,25 @@ picture-uri='file:///opt/background.png'
 picture-options='centered'
 
 # Specify the left or top color when drawing gradients, or the solid color
-primary-color='#FFFFFF'
+primary-color='#BBAACC'
 
 # Specify the right or bottom color when drawing gradients
 secondary-color='#FFFFFF'
+
+
+[org/gnome/desktop/screensaver]
+picture-options='centered'
+picture-uri='file:///opt/background.png'
+lock-enabled='false'
+primary-color='#FFFFFF'
+idle-activation-enabled='true'
+
+[org/gnome/login-screen]
+banner-message-enable=true
+banner-message-text='Bem-vindo ao ambiente computacional do IFPR!! Use está máquina para fins acadêmicos.'
+logo='/opt/background.png'
+
+[org.gnome.settings-daemon.plugins.power]
+idle-dim=300
+sleep-inactive-ac-timeout=12
+ambient-enabled='false'

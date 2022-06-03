@@ -2,3 +2,13 @@
 /org/gnome/desktop/background/picture-options
 /org/gnome/desktop/background/primary-color
 /org/gnome/desktop/background/secondary-color
+/org/gnome/desktop/screensaver/picture-options
+/org/gnome/desktop/screensaver/picture-uri
+/org/gnome/desktop/screensaver/lock-enabled
+/org/gnome/desktop/screensaver/primary-color
+/org/gnome/login-screen/banner-message-enable
+/org/gnome/login-screen/banner-message-text
+/org/gnome/login-screen/logo
+/org/gnome/settings-daemon/plugins/power/idle-dim
+/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout
+/org/gnome/settings-daemon/plugins/power/ambient-enabled

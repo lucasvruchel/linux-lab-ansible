@@ -1,0 +1,22 @@
+- name: install pip libraries
+  become: True
+  become_user: aluno
+  pip:
+       name: "{{ item }}"
+       executable: pip3
+       state: present
+       umask: "0022"
+  loop:
+    - jupyter
+    - matplotlib
+    - sklearn
+    - pandas
+    - seaborn
+    - numpy
+    - geopandas==0.7.0
+    - geobr
+    - tqdm
+    - streamlit
+    - dash
+    - sklearn
+    - matplotlib

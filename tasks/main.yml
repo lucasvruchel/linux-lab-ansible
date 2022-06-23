@@ -9,7 +9,6 @@
 # freezes aluno dir
 - import_tasks: freezeFolder.yml
 
-
 # forces the use of local apt repository
 - import_tasks: apt-source-list.yml
 
@@ -43,3 +42,4 @@
 
 # User specific packages
 - import_tasks: programs_aluno.yml
+- import_tasks: pip_libraries.yml

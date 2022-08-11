@@ -31,7 +31,20 @@
           url: https://packages.microsoft.com/keys/microsoft.asc
           state: present
          
+- name: Add Pgadmin key
+  apt_key:
+          url: https://www.pgadmin.org/static/packages_pgadmin_org.pub
+          state: present
+
 # Adiciona repositorios
+
+- name: add pgadmin repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/jammy pgadmin4 main"
+    state: present
+    filename: pgadmin4
+
+    
 
 - name: remove old repo source
   file:
@@ -48,17 +61,6 @@
   register: libreoffice_stat
 
 
-- name: libreoffice.yml - latest repo
-  apt_repository:
-    repo: ppa:libreoffice/libreoffice-still
-    filename: "libreoffice"
-    state: present
-  when: libreoffice_stat.stat.islnk is not defined
-
-- name: remove repositorio do android-studio
-  apt_repository:
-        repo: ppa:maarten-fonville/android-studio
-        state: absent
 
 - name: alteração de sources.list.d files
   template:
@@ -66,7 +68,6 @@
       dest: "/etc/apt/sources.list.d/{{ item }}"
   loop:
     - virtualbox.list
-    - libreoffice.list
     - google-chrome.list
     - vscode.list
  

@@ -25,8 +25,13 @@
 
 - name: postgresql.yml - install postgresql plugins 
   apt: 
-        name: [python3-mysqldb, python3-psycopg2, postgresql, libpq-dev, pgadmin3] 
+        name: [python3-mysqldb, python3-psycopg2, postgresql] 
   
+- name: install pgadmin4
+  apt:
+        name: pgadmin4-desktop
+        state: latest
+
 - name: mysql.yml - install mysql-server
   apt:
           name: mysql-server, python3-pymysql

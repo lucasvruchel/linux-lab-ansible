@@ -6,28 +6,28 @@
 
 - name: default-softwares.yml - Default softwares to labs network
   apt: 
-        name: [wireshark, tcpdump, arp-scan, dsniff, ipcalc, filezilla, traceroute, nbtscan, nmap, iptraf, curl, gnome-tweak-tool]
+        name: [wireshark, tcpdump, arp-scan, dsniff, ipcalc, filezilla, traceroute, nbtscan, nmap, iptraf, curl]
         state: latest
 
 - name: Default softwares to lab programmin
   apt:
-           name: [python3-pip, python-dev, python-tk, python-pygame, g++, gcc, git, virtualenv, codeblocks]
+           name: [python3-pip, g++, gcc, git, virtualenv, codeblocks]
            state: latest
 
 
 - name: Common Softwares
   apt:
-          name: [rar, unrar, p7zip-full, wine-stable]
+          name: [rar, unrar, p7zip-full]
           state: latest
 
 - name: Audio and Video softwares
   apt:
-          name: [vlc, audacity, smplayer, blender, pitivi, openshot, gimp, inkscape, audacity, kdenlive]
+          name: [vlc, audacity, smplayer, blender, pitivi, gimp, inkscape, audacity, kdenlive]
           state: latest
 
 - name: system utilities
   apt:
-          name: [vim, okular, git, gparted, sysstat, rsync, htop, fortune, cowsay, cmatrix, figlet, exfat-utils, exfat-fuse]
+          name: [vim, okular, git, gparted, sysstat, rsync, htop, fortune, cowsay, cmatrix, figlet, exfat-fuse]
           state: latest
 
 - name: extra utilities

@@ -1,0 +1,27 @@
+---
+
+- name: verifica se grub-theme.zip exists in /opt
+  stat:
+    path: /opt/grub2-theme.zip
+  register: grub
+
+- name: copia e descompacta grub-theme
+  block:
+    - name: copy to local machine grub-theme-vimix
+      copy:
+        src: grub2-themes-master.zip
+        dest: /opt/grub2-theme.zip
+  when: grub.stat.exists == False
+
+- name: unzip local file 
+  ansible.builtin.unarchive:
+    remote_src: yes
+    src: /opt/grub2-theme.zip
+    dest: /opt/
+
+- name: execute grub-theme
+  ansible.builtin.shell: sudo ./install.sh -t vimix
+  args:
+    chdir: /opt/grub2-themes-master/
+
+

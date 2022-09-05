@@ -13,5 +13,4 @@
        state: present
   loop:
       - virtualbox-6.1
-      - virtualbox-dkms
       - virtualbox-ext-pack

@@ -1,0 +1,8 @@
+---
+
+- name: update aluno user to docker group
+  user:
+          append: yes
+          groups: docker
+          name: aluno
+          

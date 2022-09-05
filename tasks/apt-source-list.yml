@@ -35,6 +35,12 @@
   apt_key:
           url: https://www.pgadmin.org/static/packages_pgadmin_org.pub
           state: present
+        
+- name: add docker key
+  apt_key:
+          url: https://download.docker.com/linux/ubuntu/gpg
+          state: present
+          
 
 # Adiciona repositorios
 
@@ -44,7 +50,11 @@
     state: present
     filename: pgadmin4
 
-    
+- name: add docker repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] http://10.33.45.164/ppa/docker {{ ansible_distribution_release }} stable"
+    state: present
+    filename: docker.list
 
 - name: remove old repo source
   file:

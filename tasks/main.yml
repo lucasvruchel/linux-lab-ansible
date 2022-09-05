@@ -21,6 +21,7 @@
 - import_tasks: programs.yml
 - import_tasks: eclipse.yml
 - import_tasks: virtualbox.yml
+- import_tasks: docker.yml
 
 # host configuration
 - import_tasks: username.yml
@@ -36,10 +37,11 @@
 
 # User specific configuration
 - import_tasks: mysql.yml
+- import_tasks: docker_aluno.yml
 - import_tasks: postgresql.yml
 - import_tasks: wireshark.yml
 - import_tasks: tcpdump.yml
 
 # User specific packages
 - import_tasks: programs_aluno.yml
-- import_tasks: pip_libraries.yml
+#- import_tasks: pip_libraries.yml

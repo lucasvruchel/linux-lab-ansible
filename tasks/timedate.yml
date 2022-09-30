@@ -1,0 +1,4 @@
+---
+
+- name: ajusta tempo para UTC
+  shell: timedatectl set-local-rtc 1

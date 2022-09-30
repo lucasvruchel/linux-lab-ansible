@@ -1,26 +1,56 @@
 ---
-- name: arduino.yml - verifica pasta do arduino
-  stat:
-        path: "{{ ARDUINO_FOLDER }}"
-  register: arduino_stat
+- name: remove old arduino files
+  file:
+        path: "{{ item }}"
+        state: absent
+  loop:
+        - /usr/share/applications/arduino-arduinoide.desktop
+        - "{{ ARDUINO_FOLDER }}"
+  
+- name: create arduino folder to new executable
+  file:
+        path: "{{ ARDUINO_FOLDER_NEW }}"
+        state: directory
+  register: arduino_folder
+        
 
-
-- name: copia e instala o arduino
+- name:
   block:
-      - name: copia arduino  to /tmp
-        get_url: 
-          url: "ftp://10.1.255.17/{{ ARDUINO_FILE }}"
-          dest: "/tmp/{{ ARDUINO_FILE }}"
+    - name: create arduino desktop file
+      template: 
+        src: arduino.desktop
+        dest: /usr/share/applications/arduino.desktop
+
+    - name: copy arduino executable
+      get_url:
+        url: "ftp://10.1.255.17/{{ ARDUINO_FILE }}.zip"
+        dest: "{{ ARDUINO_FOLDER_NEW }}/{{ ARDUINO_FILE }}.zip" 
+    
+    - name: extract arduino executable
+      unarchive:
+        src: "{{ ARDUINO_FOLDER_NEW }}/{{ ARDUINO_FILE }}.zip"
+        dest: "{{ ARDUINO_FOLDER_NEW }}/" 
+        remote_src: yes
+  # when: arduino_folder.stat.changed == True
+
+  
+
+# - name: copia e instala o arduino
+#   block:
+#       - name: copia arduino  to /tmp
+#         get_url: 
+#           url: "ftp://10.1.255.17/{{ ARDUINO_FILE }}"
+#           dest: "/tmp/{{ ARDUINO_FILE }}"
           
-      - name:  Descompacta arduino installer
-        unarchive:
-            src: "/tmp/{{ ARDUINO_FILE }}"
-            dest: /opt/
-            remote_src: yes
+#       - name:  Descompacta arduino installer
+#         unarchive:
+#             src: "/tmp/{{ ARDUINO_FILE }}"
+#             dest: /opt/
+#             remote_src: yes
    
-      - name: executa instalador do arduino
-        shell:
-            cmd: "{{ ARDUINO_FOLDER }}/install.sh"
-  when: arduino_stat.stat.exists == False
+#       - name: executa instalador do arduino
+#         shell:
+#             cmd: "{{ ARDUINO_FOLDER }}/install.sh"
+#   when: arduino_stat.stat.exists == False
   
 

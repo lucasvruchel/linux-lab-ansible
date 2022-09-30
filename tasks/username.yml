@@ -3,7 +3,7 @@
 # Importante que a task do android studio seja executada para criar o grupo
 - name: username.yml - update aluno user
   user:
-          groups: cdrom,dip,plugdev,lxd,kvm
+          groups: cdrom,dip,plugdev,lxd,kvm,dialout
           name: aluno
           password: "{{ aluno_pass }}"
           state: present
@@ -37,4 +37,3 @@
     user: ti
     state: present
   
-

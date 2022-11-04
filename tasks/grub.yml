@@ -28,31 +28,34 @@
 
 
 ### Definição de senha para o grub
-#  senha: oA2&q4e9!&%aVTcx^4B*byZv
 #  https://help.ubuntu.com/community/Grub2/Passwords#Password_Encryption
 
 
 - name: "Verify menuentry unrestricted permission on 10_linux"
   register: linux_unrestricted
   shell: "grep -i 'menuentry --unrestricted ' /etc/grub.d/10_linux"
+  changed_when: linux_unrestricted.rc == 1
+  failed_when: linux_unrestricted.rc >= 2
 
 - name: set unrestricted access to menuentries in 10_linux
   ansible.builtin.replace:
     path: /etc/grub.d/10_linux
     regexp: '(menuentry )'
     replace: 'menuentry --unrestricted '
-  when: linux_unrestricted is not changed
+  when: linux_unrestricted.rc == 1
 
 - name: "Verify menuentry unrestricted permission on 30_os-prober"
   register: windows_unrestricted
   shell: "grep -i 'menuentry --unrestricted ' /etc/grub.d/30_os-prober"
+  changed_when: windows_unrestricted.rc == 1
+  failed_when: windows_unrestricted.rc >= 2
 
 - name: set unrestricted access to menuentries in 30_os-prober
   ansible.builtin.replace:
     path: /etc/grub.d/30_os-prober
     regexp: '^menuentry '
     replace: 'menuentry --unrestricted '
-  when: windows_unrestricted is not changed
+  when: windows_unrestricted.rc == 1
 
 - name: Set super users to grub
   ansible.builtin.lineinfile:

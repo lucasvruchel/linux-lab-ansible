@@ -19,14 +19,18 @@
   unarchive:
     src: ftp://10.1.255.17/netbeans-15-bin.zip
     dest: /opt
-    creates: /opt/netbeans-15-bin/
+    remote_src: yes
+    creates: /opt/netbeans/
 
 - name: copy mysql connector file to linux folder
-  ansible.builtin.fetch:
-    src: ftp://10.1.255.17/mysql-connector-java-8.0.30.jar
-    dest: /opt/netbeans-15-bin/  
+  ansible.builtin.get_url:
+    url: ftp://10.1.255.17/mysql-connector-java-8.0.30.jar
+    dest: /opt/netbeans/  
 
-#- name: create .desktop to netbeans
+- name: create .desktop to netbeans
+  template: 
+    src: netbeans.desktop
+    dest: /usr/share/applications/
 
 - name: install java dependencies to netbeans
   apt:

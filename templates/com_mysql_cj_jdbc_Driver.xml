@@ -5,6 +5,6 @@
   <display-name value='MySQL (Connector/J driver) '/>
   <class value='com.mysql.cj.jdbc.Driver'/>
   <urls>
-    <url value='file:/opt/netbeans-15-bin/mysql-connector-java-8.0.30.jar'/>
+    <url value='file:/opt/netbeans/mysql-connector-java-8.0.30.jar'/>
   </urls>
 </driver>

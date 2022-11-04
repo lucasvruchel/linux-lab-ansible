@@ -1,5 +1,9 @@
 ---
 
+- name: Verify android studio folder
+  stat:
+    path: /opt/android-studio/
+  register: studioFolder
 
 - name: install android-studio
   block:
@@ -41,5 +45,5 @@
       file:
         path: /opt/android-studio.tar.gz
         state: absent
-
+  when:  not studioFolder.stat.exists
 

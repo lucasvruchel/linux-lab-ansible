@@ -1,0 +1,34 @@
+---
+
+- name: create folder to netbeans config mysql
+  file:
+    path: /home/aluno/.netbeans/15/config/Databases/JDBCDrivers/
+    state: directory
+    owner: aluno
+    group: aluno
+
+- name: copy template configuration to mysql jdbc driver
+  template:
+    src: com_mysql_cj_jdbc_Driver.xml
+    dest:  /home/aluno/.netbeans/15/config/Databases/JDBCDrivers/
+    owner: aluno
+    group: aluno
+
+
+- name: copy and extract netbeans bin
+  unarchive:
+    src: ftp://10.1.255.17/netbeans-15-bin.zip
+    dest: /opt
+    creates: /opt/netbeans-15-bin/
+
+- name: copy mysql connector file to linux folder
+  ansible.builtin.fetch:
+    src: ftp://10.1.255.17/mysql-connector-java-8.0.30.jar
+    dest: /opt/netbeans-15-bin/  
+
+#- name: create .desktop to netbeans
+
+- name: install java dependencies to netbeans
+  apt:
+      name: openjdk-11-jdk
+      state: latest

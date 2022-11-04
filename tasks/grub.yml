@@ -1,0 +1,72 @@
+---
+
+
+### Modifição do tema padrão do ubuntu
+- name: verifica se grub-theme.zip exists in /opt
+  stat:
+    path: /opt/grub2-theme.zip
+  register: grub
+
+- name: copia e descompacta grub-theme
+  block:
+    - name: copy to local machine grub-theme-vimix
+      copy:
+        src: grub2-themes-master.zip
+        dest: /opt/grub2-theme.zip
+  when: grub.stat.exists == False
+
+- name: unzip local file 
+  ansible.builtin.unarchive:
+    remote_src: yes
+    src: /opt/grub2-theme.zip
+    dest: /opt/
+
+- name: execute grub-theme
+  ansible.builtin.shell: sudo ./install.sh -t vimix
+  args:
+    chdir: /opt/grub2-themes-master/
+
+
+### Definição de senha para o grub
+#  senha: oA2&q4e9!&%aVTcx^4B*byZv
+#  https://help.ubuntu.com/community/Grub2/Passwords#Password_Encryption
+
+
+- name: "Verify menuentry unrestricted permission on 10_linux"
+  register: linux_unrestricted
+  shell: "grep -i 'menuentry --unrestricted ' /etc/grub.d/10_linux"
+
+- name: set unrestricted access to menuentries in 10_linux
+  ansible.builtin.replace:
+    path: /etc/grub.d/10_linux
+    regexp: '(menuentry )'
+    replace: 'menuentry --unrestricted '
+  when: linux_unrestricted is not changed
+
+- name: "Verify menuentry unrestricted permission on 30_os-prober"
+  register: windows_unrestricted
+  shell: "grep -i 'menuentry --unrestricted ' /etc/grub.d/30_os-prober"
+
+- name: set unrestricted access to menuentries in 30_os-prober
+  ansible.builtin.replace:
+    path: /etc/grub.d/30_os-prober
+    regexp: '^menuentry '
+    replace: 'menuentry --unrestricted '
+  when: windows_unrestricted is not changed
+
+- name: Set super users to grub
+  ansible.builtin.lineinfile:
+    path: /etc/grub.d/40_custom
+    regexp: '^set superusers='
+    line: "set superusers=ti"
+
+- name: Set super user password to grub user ti
+  ansible.builtin.lineinfile:
+    path: /etc/grub.d/40_custom
+    regexp: '^password_pbkdf2 ti'
+    line: "password_pbkdf2 ti grub.pbkdf2.sha512.10000.14CBD2EAC1F2EF3BC4CF9C77A5582ABF93106925C40C11C09A856EF7114A8BC45F5CC4B92EB0F03ACDFB972231EB8C2EFF6025449464759EA6AA46602E219A3A.421591D17269F1E3DCCCBFEEE8C66E90F3F9460EFA489461EC97C0D2F8F591AF4CE2596C29AD8AAFEA3A711D18ED8C53BBCC8017CC1BB6498EA3075F3102F95A"
+
+- name: update grub configuration
+  shell: update-grub
+
+

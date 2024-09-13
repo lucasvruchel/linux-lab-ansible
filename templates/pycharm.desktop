@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=Pycharm IDE
+Exec=/opt/pycharm/bin/pycharm.sh
+Icon=/opt/pycharm/bin/pycharm.svg
+Categories=GNOME;GTK;Development;IDE;

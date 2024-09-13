@@ -22,6 +22,7 @@
           - python3-pymysql
           - tcpdump
           - tshark
+          - mariadb-client
 
 - name: postgresql.yml - install postgresql plugins 
   apt: 
@@ -90,37 +91,40 @@
   when: code_bin.stat.islnk is not defined
 
 
-- name: verify postman installation
+- name: verify Insomnia REST client installation
   stat:
-    path: /usr/local/bin/postman
-  register: postman_bin
+        path: /opt/Insomnia/
+  register: insomnia_folder
 
-- name: install postman
+- name: install insomnia if folder not exists
   block:
-    - name: get postman from ftp
-      get_url:
-            url: ftp://10.1.255.17/postman.tar.gz
-            dest: /tmp/postman.tar.gz
+        - name: get insomnia installer from FTP
+          get_url: 
+                url: ftp://10.1.255.17/Insomnia.Core-8.6.1.deb
+                dest: /tmp/Insomnia.Core-8.6.1.deb
 
-    - name: postman unarchive in /opt
-      unarchive:
-            src: /tmp/postman.tar.gz
-            dest: /opt/
-            remote_src: yes
+        - name: install with apt module
+          apt:
+                deb: /tmp/Insomnia.Core-8.6.1.deb
+             
+  when: insomnia_folder.stat.exists is defined
 
-    - name: postman link to shell
-      file:
-            src: /opt/Postman/Postman
-            dest: /usr/local/bin/postman
-            state: link
+- name: verify projectlibre installation
+  stat:
+        path: /opt/Insomnia/
+  register: project_folder
 
-    - name: postman icon
-      template:
-            src: postman.desktop
-            dest: /usr/share/applications/postman.desktop
+- name: install project if folder not exists
+  block:
+        - name: get project installer from FTP
+          get_url: 
+                url: ftp://10.1.255.17/projectlibre_1.9.3-1.deb
+                dest: /tmp/projectlibre_1.9.3-1.deb
 
-    - name: remove postman compacted
-      file:
-            name: /tmp/postman.tar.gz
-            state: absent
-  when: postman_bin.stat.islnk is not defined
+        - name: install with apt module
+          apt:
+                deb: /tmp/projectlibre_1.9.3-1.deb
+             
+  when: project_folder.stat.exists is defined
+ 
+  

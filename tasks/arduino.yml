@@ -6,6 +6,8 @@
   loop:
         - /usr/share/applications/arduino-arduinoide.desktop
         - "{{ ARDUINO_FOLDER }}"
+        - "{{ ARDUINO_FOLDER_NEW }}"
+  when: arduino_update
   
 - name: create arduino folder to new executable
   file:
@@ -29,11 +31,17 @@
     - name: extract arduino executable
       unarchive:
         src: "{{ ARDUINO_FOLDER_NEW }}/{{ ARDUINO_FILE }}.zip"
-        dest: "{{ ARDUINO_FOLDER_NEW }}/" 
+        dest: "{{ ARDUINO_FOLDER_NEW }}" 
         remote_src: yes
-  # when: arduino_folder.stat.changed == True
+    
+    - name: remove file arduino
+      file:
+        path: "{{ ARDUINO_FOLDER_NEW }}/{{ ARDUINO_FILE }}.zip"
+        state: absent
 
-  
+  when: arduino_folder.changed == True
+
+
 
 # - name: copia e instala o arduino
 #   block:

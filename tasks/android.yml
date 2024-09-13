@@ -1,16 +1,27 @@
 ---
 
+#- name: remove android studio folder and reinstall
+#  file:
+#        path: /opt/android-studio/
+#        state: absent
+
+- name: install android emulator
+  apt:
+        name: google-android-emulator-installer
+        state: latest
+
 - name: Verify android studio folder
   stat:
     path: /opt/android-studio/
   register: studioFolder
 
+
 - name: install android-studio
   block:
     - name: copy android-studio installer
       get_url:
-            url: ftp://10.1.255.17/android-studio.tar.gz
-            dest: /opt/android-studio.tar.gz
+            url: "ftp://10.1.255.17/{{ androidstudio_filename }}"
+            dest: "/opt/{{ androidstudio_filename }}"
 
     - name: install android-studio apt dependencies
       apt:
@@ -20,7 +31,7 @@
     - name: unzip android-studio to /opt
       unarchive:
         copy: false
-        src: /opt/android-studio.tar.gz
+        src: "/opt/{{ androidstudio_filename }}"
         dest: /opt/
         mode: "0755"
 
@@ -43,7 +54,6 @@
 
     - name: remove arquivo compactado
       file:
-        path: /opt/android-studio.tar.gz
+        path: "/opt/{{ androidstudio_filename }}"
         state: absent
   when:  not studioFolder.stat.exists
-

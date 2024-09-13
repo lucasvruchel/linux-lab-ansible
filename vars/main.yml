@@ -6,6 +6,17 @@ hostname: "{{ lookup('file', '/etc/hostname') }}"
 aluno_pass: $6$g1EAOcZbo8YmJalS$yFd1lyzJ.iYTftozN7ORxHZALaIZxb1XoYYKxCLYy15E.WT/ssaiMy1qEThkSF/F63T9/YhRhcYr/e3Jo5mmk.
 ti_pass : $6$Qn.UjlS3mp8xymuZ$sW4SIxU1FoQ3gECj3pGNtDEG3O59fI3iBlmUYXJbQhgtP11.A9dQfrXiZ7Wa9ujlBmYZldqLmhsd.DmSZAzCd.
 
-ARDUINO_FILE: arduino-ide_2.0.0_Linux_64bit
+ARDUINO_FILE: arduino-ide_2.2.1_Linux_64bit
 ARDUINO_FOLDER: /opt/arduino-1.8.13
-ARDUINO_FOLDER_NEW: /opt/arduino-2.0.0
+ARDUINO_FOLDER_NEW: /opt/arduino-2.2.1
+arduino_update: true
+
+androidstudio_filename: android-studio-2023.1.1.28-linux.tar.gz
+workbench_file: mysql-workbench-community_8.0.36-1ubuntu22.04_amd64.deb
+
+pycharm_file: pycharm-community-2023.3.3
+pycharm_extension: tar.gz
+
+eclipse_modeling_file: eclipse-modeling-2023-12-R-linux-gtk-x86_64
+eclipse_modeling_extension: zip
+eclipse_modeling_update: True

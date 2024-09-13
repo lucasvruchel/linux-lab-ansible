@@ -4,14 +4,14 @@
   block:
     - name: copy mysql workbench installer
       get_url:
-            url: ftp://10.1.255.17/mysql-workbench-community_8.0.30-1ubuntu22.04_amd64.deb
-            dest: /opt/mysql-workbench-community_8.0.30-1ubuntu22.04_amd64.deb
+            url: "ftp://10.1.255.17/{{ workbench_file }}"
+            dest: "/opt/{{ workbench_file }}"
     
     - name: install workbench 
       apt: 
-        deb: /opt/mysql-workbench-community_8.0.30-1ubuntu22.04_amd64.deb
+        deb: "/opt/{{ workbench_file }}"
 
     - name: remove mysql workbench installer
       file:
-        path: /opt/mysql-workbench-community_8.0.30-1ubuntu22.04_amd64.deb
+        path: "/opt/{{ workbench_file }}.deb"
         state: absent

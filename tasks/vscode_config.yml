@@ -25,6 +25,12 @@
     - CoenraadS.bracket-pair-colorizer-2
     - eamodio.gitlens
     - ms-python.python
+    - vscjava.vscode-java-pack
+    - vscjava.vscode-java-dependency
+    - vscjava.vscode-java-test
+    - donjayamanne.python-extension-pack
+    - ms-python.python
+    - ms-python.debugpy
   become: true
   become_user: aluno
 

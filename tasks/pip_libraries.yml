@@ -9,7 +9,7 @@
   loop:
     - jupyter
     - matplotlib
-    - sklearn
+    - scikit-learn
     - pandas
     - seaborn
     - numpy
@@ -18,5 +18,4 @@
     - tqdm
     - streamlit
     - dash
-    - sklearn
     - matplotlib

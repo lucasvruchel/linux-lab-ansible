@@ -14,3 +14,10 @@
           name: remove older files
           job: find /save/* -mtime +45 -execdir rm -rf -- '{}' \;
           special_time: hourly
+
+- name: update vscode
+  cron:
+    name: apt update vscode
+    job: apt install vscode -y
+    special_time: hourly
+

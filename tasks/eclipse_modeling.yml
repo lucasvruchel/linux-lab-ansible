@@ -1,0 +1,54 @@
+---
+
+
+- name: eclipse - verify eclipse modeling folder is created
+  file:
+          path: /opt/eclipse-modeling
+          state: directory
+          mode: '0755'
+  register: eclipse_modeling_status
+
+- name: copy and install eclipse
+  block:
+    - name: copy
+      get_url:
+        url: "ftp://10.1.255.17/{{ eclipse_modeling_file }}.{{ eclipse_modeling_extension }}"
+        dest: "/opt/eclipse-modeling/{{ eclipse_modeling_file }}.{{ eclipse_modeling_extension }}"
+
+    - name: unarchive eclipse
+      unarchive:
+        src: "/opt/eclipse-modeling/{{ eclipse_modeling_file }}.{{ eclipse_modeling_extension }}"
+        dest: /opt/eclipse-modeling/
+        mode: 0755
+        remote_src: yes
+
+    - name: create desktop entry
+      template:
+              src: eclipse_modeling.desktop.j2
+              dest: /usr/share/applications/eclipse_modeling.desktop
+
+    - name: remove eclipse modeling compressed file
+      file:
+        state: absent
+        path: "/opt/eclipse-modeling/{{ eclipse_modeling_file }}.{{ eclipse_modeling_extension }}"
+
+  when: eclipse_modeling_status.changed == True or eclipse_modeling_update == True
+
+- name: only for eclipse_modeling update
+  block:
+        - name: remove eclipse_modeling folder
+          file:
+                path: /opt/eclipse-modeling/eclipse
+                state: absent
+
+        - name: move folder to parent dir
+          command: "mv -f /opt/eclipse-modeling/{{ eclipse_modeling_file }}/eclipse/ /opt/eclipse-modeling/"   
+
+        - name: remove folder of default installing of eclipse_modeling
+          file:
+                path: "/opt/eclipse-modeling/{{ eclipse_modeling_file }}"
+                state: absent
+  when: eclipse_modeling_update == True
+       
+
+

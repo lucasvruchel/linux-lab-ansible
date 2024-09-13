@@ -1,0 +1,50 @@
+---
+
+- name: Verify pycharm folder
+  stat:
+    path: /opt/pycharm/
+  register: pycharmFolder
+
+
+- name: install pycharm if folder not exists
+  block:
+    - name: copy pycharm  installer
+      get_url:
+            url: "ftp://10.1.255.17/{{ pycharm_file }}.{{ pycharm_extension }}"
+            dest: "/opt/{{ pycharm_file }}.{{ pycharm_extension }}"
+
+    - name: unzip pycharm to /opt
+      unarchive:
+        copy: false
+        src: "/opt/{{ pycharm_file }}.{{ pycharm_extension }}"
+        dest: /opt/
+        mode: "0755"
+
+    - name: rename pycharm folder
+      command: 
+        cmd: "mv /opt/{{ pycharm_file }} /opt/pycharm"
+        creates: /opt/pycharm
+
+    - name: copy pycharm desktop link
+      template:
+        src: pycharm.desktop
+        dest: /usr/share/applications/
+
+
+    - name: update system icons
+      block:
+        - name: gtk update
+          command: gtk-update-icon-cache /usr/share/icons/hicolor/
+
+        - name: desktop database
+          command: update-desktop-database -q
+
+        - name: xdg menu
+          command: xdg-desktop-menu forceupdate
+
+    - name: remove arquivo compactado
+      file:
+        path: /opt/pycharm-community-2022.3.3.tar.gz
+        state: absent
+  when:  not pycharmFolder.stat.exists
+

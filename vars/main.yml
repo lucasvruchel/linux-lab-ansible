@@ -17,6 +17,6 @@ workbench_file: mysql-workbench-community_8.0.36-1ubuntu22.04_amd64.deb
 pycharm_file: pycharm-community-2023.3.3
 pycharm_extension: tar.gz
 
-eclipse_modeling_file: eclipse-modeling-2023-12-R-linux-gtk-x86_64
+eclipse_modeling_file: eclipse-modeling-2024-09-R-linux-gtk-x86_64
 eclipse_modeling_extension: zip
 eclipse_modeling_update: True

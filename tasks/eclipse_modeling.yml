@@ -12,7 +12,7 @@
   block:
     - name: copy
       get_url:
-        url: "ftp://10.1.255.17/{{ eclipse_modeling_file }}.{{ eclipse_modeling_extension }}"
+        url: "ftp://{{ ftp_server }}/{{ eclipse_modeling_file }}.{{ eclipse_modeling_extension }}"
         dest: "/opt/eclipse-modeling/{{ eclipse_modeling_file }}.{{ eclipse_modeling_extension }}"
 
     - name: unarchive eclipse

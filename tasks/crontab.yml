@@ -1,13 +1,7 @@
 ---
 
 - name: Crontab.yml - Set default time to shutdown computers at night
-  cron: name=atNight hour=23 minute=00 state=present job="/sbin/shutdown -h 5"
-
-- name: Set default time to shutdown computers at Afternoon
-  cron: name=atAfternoon hour=18 minute=20 state=present job="/sbin/shutdown -h 5"
-
-- name: Set default time to shutdown computers at Midday
-  cron: name=atMidday hour=12 minute=30 state=present job="/sbin/shutdown -h 5" 
+  cron: name=atNight hour=02 minute=00 state=present job="/sbin/shutdown -h 5"
 
 - name: clear-saved.yml - install cron remove older than 45 day files
   cron:

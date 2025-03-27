@@ -18,11 +18,10 @@
 - name: install vscode extensions
   shell: "code --install-extension {{ item }} --extensions-dir /opt/vscode_extensions"
   loop:
-    - abusaidm.html-snippets
     - xabikos.JavaScriptSnippets
+    - ms-azuretools.vscode-docker
     - ritwickdey.LiveServer
     - esbenp.prettier-vscode
-    - CoenraadS.bracket-pair-colorizer-2
     - eamodio.gitlens
     - ms-python.python
     - vscjava.vscode-java-pack

@@ -10,7 +10,7 @@
   block:
     - name: copy pycharm  installer
       get_url:
-            url: "ftp://10.1.255.17/{{ pycharm_file }}.{{ pycharm_extension }}"
+            url: "ftp://{{ ftp_server }}/{{ pycharm_file }}.{{ pycharm_extension }}"
             dest: "/opt/{{ pycharm_file }}.{{ pycharm_extension }}"
 
     - name: unzip pycharm to /opt
@@ -44,7 +44,7 @@
 
     - name: remove arquivo compactado
       file:
-        path: /opt/pycharm-community-2022.3.3.tar.gz
+        path: "/opt/{{ pycharm_file }}.{{ pycharm_extension }}"
         state: absent
   when:  not pycharmFolder.stat.exists
 

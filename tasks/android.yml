@@ -5,10 +5,10 @@
 #        path: /opt/android-studio/
 #        state: absent
 
-- name: install android emulator
-  apt:
-        name: google-android-emulator-installer
-        state: latest
+# - name: install android emulator
+#   apt:
+#         name: google-android-emulator-installer
+#         state: latest
 
 - name: Verify android studio folder
   stat:
@@ -20,7 +20,7 @@
   block:
     - name: copy android-studio installer
       get_url:
-            url: "ftp://10.1.255.17/{{ androidstudio_filename }}"
+            url: "ftp://{{ftp_server}}/{{ androidstudio_filename }}"
             dest: "/opt/{{ androidstudio_filename }}"
 
     - name: install android-studio apt dependencies

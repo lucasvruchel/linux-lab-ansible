@@ -2,7 +2,7 @@
 
 - name: create folder to netbeans config mysql
   file:
-    path: /home/aluno/.netbeans/18/config/Databases/JDBCDrivers/
+    path: "/home/aluno/.netbeans/{{ NETBEANS_VERSION }}/config/Databases/JDBCDrivers/"
     state: directory
     owner: aluno
     group: aluno
@@ -10,21 +10,21 @@
 - name: copy template configuration to mysql jdbc driver
   template:
     src: com_mysql_cj_jdbc_Driver.xml
-    dest:  /home/aluno/.netbeans/18/config/Databases/JDBCDrivers/
+    dest:  "/home/aluno/.netbeans/{{ NETBEANS_VERSION }}/config/Databases/JDBCDrivers/"
     owner: aluno
     group: aluno
 
 
 - name: copy and extract netbeans bin
   unarchive:
-    src: ftp://10.1.255.17/netbeans-18-bin.zip
+    src: "ftp://{{ ftp_server }}/netbeans-{{ NETBEANS_VERSION }}-bin.zip"
     dest: /opt
     remote_src: yes
     creates: /opt/netbeans/
 
 - name: copy mysql connector file to linux folder
   ansible.builtin.get_url:
-    url: ftp://10.1.255.17/mysql-connector-java-8.0.30.jar
+    url: "ftp://{{ ftp_server }}/mysql-connector-java-8.0.30.jar"
     dest: /opt/netbeans/  
 
 - name: create .desktop to netbeans

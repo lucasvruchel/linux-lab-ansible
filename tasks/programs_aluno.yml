@@ -1,8 +1,8 @@
-- name: pip upgrade pip3
-  pip:
-       name: pip
-       executable: pip3
-       state: latest
+#- name: pip upgrade pip3
+#  pip:
+#       name: pip
+#       executable: pip3
+#       state: latest
 
 - name: install node steps
   block:
@@ -33,7 +33,18 @@
             chdir: "/home/aluno/"
             creates: "/home/aluno/.nvm/versions/node"
       when: nvm_status.stat.islnk is not defined
-    
+
+# - name: install node apps
+#   community.general.npm: 
+#     executable: /home/aluno/.nvm/versions/node/v22.11.0/lib/node_modules/npm
+#     name: "{{ item }}"
+#     global: true
+#   loop:
+#    - angular/cli
+#    - adonisjs
+#    - react
+#    - react-native
+
 
     
   

@@ -1,0 +1,34 @@
+---
+
+- name: copia packettracer installer
+  ansible.builtin.get_url:
+    url: "ftp://{{ ftp_server }}/{{ packettracer_file }}"
+    dest: "/tmp/{{ packettracer_file }}"
+
+- name: copia dependencias do PT para PC
+  ansible.builtin.get_url:
+    url: "ftp://{{ ftp_server }}/{{ item }}"
+    dest: "/tmp/{{ item }}"
+  loop: "{{ packettracer_dependencies }}"
+
+- name: install packettracer dependencies
+  apt:
+    deb: "/tmp/{{ item }}"
+  loop: "{{ packettracer_dependencies }}"
+
+- name: Set EULA agreement PT
+  ansible.builtin.debconf:
+    name: PacketTracer
+    question: PacketTracer_822_amd64/accept-eula
+    value: true
+    vtype: boolean
+
+- name: install packettracer .deb
+  apt:
+    deb: "/tmp/{{ packettracer_file }}"
+  
+
+# - name: copy .desktop file
+#   copy:
+#           src: pt7.desktop
+#           dest: /usr/share/applications/pt7.desktop

@@ -6,17 +6,31 @@ hostname: "{{ lookup('file', '/etc/hostname') }}"
 aluno_pass: $6$g1EAOcZbo8YmJalS$yFd1lyzJ.iYTftozN7ORxHZALaIZxb1XoYYKxCLYy15E.WT/ssaiMy1qEThkSF/F63T9/YhRhcYr/e3Jo5mmk.
 ti_pass : $6$Qn.UjlS3mp8xymuZ$sW4SIxU1FoQ3gECj3pGNtDEG3O59fI3iBlmUYXJbQhgtP11.A9dQfrXiZ7Wa9ujlBmYZldqLmhsd.DmSZAzCd.
 
-ARDUINO_FILE: arduino-ide_2.2.1_Linux_64bit
-ARDUINO_FOLDER: /opt/arduino-1.8.13
-ARDUINO_FOLDER_NEW: /opt/arduino-2.2.1
+ARDUINO_FILE: arduino-ide_2.3.4_Linux_64bit
+ARDUINO_FILE_EXTENSION: zip
+ARDUINO_FOLDER_EXTRACTED: /opt/arduino-ide_2.3.4_Linux_64bit
+ARDUINO_FOLDER: /opt/arduino-2.3.4
 arduino_update: true
 
-androidstudio_filename: android-studio-2023.1.1.28-linux.tar.gz
-workbench_file: mysql-workbench-community_8.0.36-1ubuntu22.04_amd64.deb
+androidstudio_filename: android-studio-2024.2.2.13-linux.tar.gz
+workbench_file: mysql-workbench-community_8.0.40-1ubuntu24.04_amd64.deb
 
-pycharm_file: pycharm-community-2023.3.3
+pycharm_file: pycharm-community-2024.3
 pycharm_extension: tar.gz
+
+eclipse_file: eclipse-jee-2024-09-R-linux-gtk-x86_64.tar.gz
 
 eclipse_modeling_file: eclipse-modeling-2024-09-R-linux-gtk-x86_64
 eclipse_modeling_extension: zip
 eclipse_modeling_update: True
+
+ftp_server: 10.1.255.16
+
+NETBEANS_VERSION: 24
+
+packettracer_file: Packet_Tracer822_amd64_signed.deb
+packettracer_dependencies:
+  - dialog_1.3-20240101-1_amd64.deb  
+  - libgl1-mesa-glx_23.0.4-0ubuntu1~22.04.1_amd64.deb  
+  - libxcb-xinerama0-dev_1.15-1ubuntu2_amd64.deb
+

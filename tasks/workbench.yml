@@ -4,7 +4,7 @@
   block:
     - name: copy mysql workbench installer
       get_url:
-            url: "ftp://10.1.255.17/{{ workbench_file }}"
+            url: "ftp://{{ ftp_server }}/{{ workbench_file }}"
             dest: "/opt/{{ workbench_file }}"
     
     - name: install workbench 

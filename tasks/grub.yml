@@ -1,6 +1,12 @@
 ---
 
 
+### Desabilitar memory test
+- name: desabilitar memory test
+  file:
+    path: /etc/grub.d/20_memtest86+
+    mode: "0644"
+
 ### Modifição do tema padrão do ubuntu
 - name: verifica se grub-theme.zip exists in /opt
   stat:

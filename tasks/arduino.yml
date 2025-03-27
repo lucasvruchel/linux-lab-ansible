@@ -6,12 +6,12 @@
   loop:
         - /usr/share/applications/arduino-arduinoide.desktop
         - "{{ ARDUINO_FOLDER }}"
-        - "{{ ARDUINO_FOLDER_NEW }}"
+        - "{{ ARDUINO_FOLDER_EXTRACTED }}"
   when: arduino_update
   
 - name: create arduino folder to new executable
   file:
-        path: "{{ ARDUINO_FOLDER_NEW }}"
+        path: "{{ ARDUINO_FOLDER }}"
         state: directory
   register: arduino_folder
         
@@ -25,18 +25,31 @@
 
     - name: copy arduino executable
       get_url:
-        url: "ftp://10.1.255.17/{{ ARDUINO_FILE }}.zip"
-        dest: "{{ ARDUINO_FOLDER_NEW }}/{{ ARDUINO_FILE }}.zip" 
-    
+        url: "ftp://{{ ftp_server }}/{{ ARDUINO_FILE }}.{{ ARDUINO_FILE_EXTENSION }}"
+        dest: "{{ ARDUINO_FOLDER }}/{{ ARDUINO_FILE }}.{{ ARDUINO_FILE_EXTENSION }}"
+
     - name: extract arduino executable
       unarchive:
-        src: "{{ ARDUINO_FOLDER_NEW }}/{{ ARDUINO_FILE }}.zip"
-        dest: "{{ ARDUINO_FOLDER_NEW }}" 
+        src: "{{ ARDUINO_FOLDER }}/{{ ARDUINO_FILE }}.{{ ARDUINO_FILE_EXTENSION }}"
+        dest: "{{ ARDUINO_FOLDER }}" 
         remote_src: yes
+
+    - name: copy arduino icon
+      get_url:
+        url: "ftp://{{ ftp_server }}/arduino.png"
+        dest: "{{ ARDUINO_FOLDER }}/arduino.png"
+
+    - name: remove file arduino
+      file:
+        path: "{{ ARDUINO_FOLDER }}/chrome-sandbox"
+        state: present
+        mode: '4755'
+        owner: root
+        state: file
     
     - name: remove file arduino
       file:
-        path: "{{ ARDUINO_FOLDER_NEW }}/{{ ARDUINO_FILE }}.zip"
+        path: "{{ ARDUINO_FOLDER }}/{{ ARDUINO_FILE }}.{{ ARDUINO_FILE_EXTENSION }}"
         state: absent
 
   when: arduino_folder.changed == True

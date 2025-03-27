@@ -12,5 +12,5 @@
        name: '{{ item }}'
        state: present
   loop:
-      - virtualbox-6.1
+      - virtualbox
       - virtualbox-ext-pack

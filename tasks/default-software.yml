@@ -11,7 +11,7 @@
 
 - name: Default softwares to lab programmin
   apt:
-           name: [python3-pip, g++, gcc, git, virtualenv, codeblocks]
+           name: [python3-pip, g++, gcc, git, virtualenv, codeblocks, pipx]
            state: latest
 
 
@@ -22,7 +22,7 @@
 
 - name: Audio and Video softwares
   apt:
-          name: [vlc, audacity, smplayer, blender, pitivi, gimp, inkscape, audacity, kdenlive]
+          name: [vlc, audacity, smplayer, pitivi, gimp, inkscape, audacity]
           state: latest
 
 - name: system utilities
@@ -32,7 +32,7 @@
 
 - name: extra utilities
   apt:
-          name: [umbrello, remmina, oregano, dia]
+          name: [umbrello, remmina, dia]
           state: latest
 
 

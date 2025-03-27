@@ -4,52 +4,53 @@
 #
 #
 ### Necessário rápido
-##- import_tasks: crontab.yml
+# - import_tasks: crontab.yml
 ##
 ### freezes aluno dir
-##- import_tasks: freezeFolder.yml
+# - import_tasks: freezeFolder.yml
 ##
 ### forces the use of local apt repository
-##- import_tasks: apt-source-list.yml
+# - import_tasks: apt-source-list.yml
 #
 #
 ### package installing
-##- import_tasks: browsers.yml
-##- import_tasks: vscode.yml
-##- import_tasks: libreoffice.yml
-###- import_tasks: default-software.yml
-- import_tasks: android.yml
-##- import_tasks: pycharm.yml
-#- import_tasks: arduino.yml
-##- import_tasks: programs.yml
-#- import_tasks: eclipse.yml
-#- import_tasks: eclipse_modeling.yml
-#- import_tasks: virtualbox.yml
-#- import_tasks: docker.yml
-#- import_tasks: workbench.yml
+# - import_tasks: browsers.yml
+# - import_tasks: libreoffice.yml
+# - import_tasks: default-software.yml
+# - import_tasks: android.yml
+# - import_tasks: pycharm.yml
+# - import_tasks: arduino.yml
+# - import_tasks: programs.yml
+# - import_tasks: eclipse.yml
+# - import_tasks: eclipse_modeling.yml
+# - import_tasks: virtualbox.yml
+# - import_tasks: docker.yml
+# - import_tasks: workbench.yml
 #
 ### host configuration
-#- import_tasks: username.yml
-#- import_tasks: sudoers.yml
-#- import_tasks: background.yml
-#- import_tasks: hostname.yml
-#- import_tasks: aptd.yml
-#- import_tasks: disable-services.yml
-#- import_tasks: wifi.yml
-#- import_tasks: sshd_config.yml
-#- import_tasks: sysctl_conf.yml
-#- import_tasks: vscode_config.yml
-#- import_tasks: grub.yml
-#- import_tasks: netbeans.yml
-#- import_tasks: save.yml
-#
-### User specific configuration
-#- import_tasks: mysql.yml
-#- import_tasks: docker_aluno.yml
-#- import_tasks: postgresql.yml
-#- import_tasks: wireshark.yml
-#- import_tasks: tcpdump.yml
-#
-### User specific packages
-#- import_tasks: programs_aluno.yml
-#- import_tasks: pip_libraries.yml
+# - import_tasks: username.yml
+# - import_tasks: sudoers.yml
+# - import_tasks: background.yml
+# - import_tasks: hostname.yml
+# - import_tasks: aptd.yml
+# - import_tasks: disable-services.yml
+# - import_tasks: wifi.yml
+# - import_tasks: sshd_config.yml
+# - import_tasks: sysctl_conf.yml
+# - import_tasks: vscode_config.yml
+# - import_tasks: grub.yml
+# - import_tasks: netbeans.yml
+# - import_tasks: save.yml
+- import_tasks: packettracer.yml
+
+# #
+# ### User specific configuration
+# - import_tasks: mysql.yml
+# - import_tasks: docker_aluno.yml
+# - import_tasks: postgresql.yml
+# - import_tasks: wireshark.yml
+# - import_tasks: tcpdump.yml
+# #
+# ### User specific packages
+# - import_tasks: programs_aluno.yml
+# - import_tasks: pip_libraries.yml

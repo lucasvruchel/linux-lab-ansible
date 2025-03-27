@@ -10,7 +10,7 @@
   block:
     - name: copy
       get_url:
-        url: ftp://10.1.255.17/eclipse.tar.gz
+        url: "ftp://{{ ftp_server }}/{{ eclipse_file }}"
         dest: /tmp/eclipse.tar.gz
 
     - name: unarchive eclipse

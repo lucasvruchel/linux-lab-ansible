@@ -1,21 +1,38 @@
-- name: install pip libraries
+# - name: install pip libraries
+#   become: True
+#   become_user: aluno
+#   pip:
+#        name: "{{ item }}"
+#        executable: pip3
+#        state: present
+#        umask: "0022"
+#   loop:
+#     - jupyter
+#     - matplotlib
+#     - scikit-learn
+#     - pandas
+#     - seaborn
+#     - numpy
+#     - geopandas==0.7.0
+#     - geobr
+#     - tqdm
+#     - streamlit
+#     - dash
+#     - matplotlib
+
+- name: Install poetry
+  community.general.pipx:
+    name: "{{ item }}"
+    state: present
+    install_deps: True
+  loop:
+    - poetry
   become: True
   become_user: aluno
-  pip:
-       name: "{{ item }}"
-       executable: pip3
-       state: present
-       umask: "0022"
-  loop:
-    - jupyter
-    - matplotlib
-    - scikit-learn
-    - pandas
-    - seaborn
-    - numpy
-    - geopandas==0.7.0
-    - geobr
-    - tqdm
-    - streamlit
-    - dash
-    - matplotlib
+
+- name: install jupyter
+  community.general.pipx:
+    name: jupyterlab
+    install_deps: True
+  become: True
+  become_user: aluno
